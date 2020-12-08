@@ -1,5 +1,6 @@
 ## Database setup
 
+```sql
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(320) NOT NULL,
@@ -23,3 +24,4 @@ CREATE TABLE evening_reports (
   eating SMALLINT NOT NULL,
   mood SMALLINT NOT NULL
 );
+```
