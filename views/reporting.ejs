@@ -1,0 +1,28 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/errors.ejs') %>
+<h2>Morning</h2>
+<% if(data.morning){ %>
+  <div>Already reported today</div>
+<% } %> 
+<form action="/behavior/reporting" method="POST">
+  <input type="hidden" name="type" value="morning">
+  <input type="date" name="date" value="<%= data.morningDate || data.today %>" required>
+  <input type="number" name="sleep_duration" step="0.01" min="0" max="24" value="<%= data.morning?.sleep_duration %>" required>
+  <input type="range" name="sleep_quality" min="1" max="5" value="<%= data.morning?.sleep_quality || 3 %>" required>
+  <input type="range" name="mood" min="1" max="5" value="<%= data.morning?.mood || 3 %>" required>
+  <input type="submit" value="Save">
+</form>
+<h2>Evening</h2>
+<% if(data.evening){ %>
+  <div>Already reported today</div>
+<% } %> 
+<form action="/behavior/reporting" method="POST">
+  <input type="hidden" name="type" value="evening">
+  <input type="date" name="date" value="<%= data.eveningDate || data.today %>" required>
+  <input type="number" name="exercise" step="0.01" min="0" max="24" value="<%= data.evening?.exercise %>" required>
+  <input type="number" name="studying" step="0.01" min="0" max="24" value="<%= data.evening?.studying %>" required>
+  <input type="range" name="eating" min="1" max="5" value="<%= data.evening?.eating || 3 %>" required>
+  <input type="range" name="mood" min="1" max="5" value="<%= data.evening?.mood || 3 %>" required>
+  <input type="submit" value="Save">
+</form>
+<%- include('./partials/footer.ejs') %>

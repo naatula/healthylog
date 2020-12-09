@@ -1,0 +1,7 @@
+<% if (data.errors && data.errors.length > 0) { %>
+  <ul>
+      <% data.errors.forEach((error) => { %>
+          <li><%= error %></li>
+      <% }); %>
+  </ul>
+<% } %>

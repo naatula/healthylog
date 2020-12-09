@@ -14,7 +14,7 @@ router
 .get('/auth/logout', auth.logout)
 .post('/auth/logout', auth.logout)
 .get('/auth/registration', user.form)
-.post('/auth/registration', user.create)
+.post('/auth/registration', user.register)
 .get('/behavior/reporting', behavior.form)
 .post('/behavior/reporting', behavior.create)
 .get('/behavior/summary', behavior.summary)

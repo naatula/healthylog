@@ -8,19 +8,20 @@ const errorMiddleware = async(context, next) => {
   }
 }
 
-const requestLoggingMiddleware = async({ request }, next) => {
+const requestLoggingMiddleware = async({ request, session }, next) => {
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
-  console.log(`${request.method} ${request.url.pathname} - TODO: USER ID - ${ms} ms`);
+  var user = await session.get('user')
+  if(user){ user = `User: ${user}` } else { user = 'anonymous' }
+  console.log(`${request.method} ${request.url.pathname} - ${ user } - ${ms} ms`);
 }
 
 const authenticationMiddleware = async({request, response, session, params}, next) => {
-  if(!['/auth', '/api'].every((a) => !request.url.pathname.startsWith(a)) || request.url.pathname === '/'){
-    console.log('authenticationMiddleware: whitelist')
+  if(!['/auth', '/api'].every((a) => !request.url.pathname.startsWith(a)) || ['/', '/favicon.ico'].includes(request.url.pathname) ){
     await next();
   } else {
-    const authenticated = await session.get('authenticated')
+    const authenticated = await session.get('user')
     if(authenticated){
       await next();
     } else {
