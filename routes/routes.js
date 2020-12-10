@@ -20,5 +20,6 @@ router
 .get('/behavior/summary', behavior.summary)
 .get('/api/summary', summaryApi.week)
 .get('/api/summary/:year/:month/:day', summaryApi.day)
+.get('/api/summary/:year/:month', summaryApi.month) // Extra
 
 export { router };

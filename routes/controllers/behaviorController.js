@@ -73,6 +73,9 @@ const create = async({response, render, request, session}) => {
 }
 
 const summary = async({response}) => {
+  const yesterday = new Date(Date.now()-3600*24*1000).toISOString().slice(0,10)
+  const today = new Date().toISOString().slice(0,10)
+
   response.body = 'TODO'
 }
 

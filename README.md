@@ -30,5 +30,9 @@ CREATE INDEX users_email_index ON users (email);
 
 CREATE INDEX morning_reports_user_id_index ON morning_reports (user_id);
 
-CREATE INDEX evening_reports_user_id_index ON evening_reports (user_id); 
+CREATE INDEX evening_reports_user_id_index ON evening_reports (user_id);
+
+CREATE INDEX morning_reports_date_index ON morning_reports (date);
+
+CREATE INDEX evening_reports_date_index ON evening_reports (date);
 ```

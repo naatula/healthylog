@@ -18,6 +18,7 @@ const login = async({request, response, session, render}) => {
   const res = await userService.auth(email, password)
   if(res.success){
     await session.set('user', res.id)
+    await session.set('email', res.email)
     response.redirect('/behavior/summary')
   } else {
     if(res.invalidEmail) { errors.push('The email is not registered') }
@@ -29,6 +30,7 @@ const login = async({request, response, session, render}) => {
 
 const logout = async({response, session}) => {
   await session.set('user', null)
+  await session.set('email', null)
   response.redirect('/')
 }
 
