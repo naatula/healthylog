@@ -4,6 +4,7 @@ import * as user from "./controllers/userController.js"
 import * as auth from "./controllers/authController.js"
 import * as behavior from "./controllers/behaviorController.js"
 import * as summaryApi from "./apis/summaryApi.js"
+import * as behaviorApi from "./apis/behaviorApi.js"
 
 const router = new Router();
 
@@ -18,8 +19,9 @@ router
 .get('/behavior/reporting', behavior.form)
 .post('/behavior/reporting', behavior.create)
 .get('/behavior/summary', behavior.summary)
-.get('/api/summary', summaryApi.week)
+.get('/behavior/api/:from/:to', behaviorApi.getDataBetween) // For ajax in behavior/summary
+.get('/behavior/api/:date', behaviorApi.getDataOn)
+.get('/api/summary', summaryApi.lastWeek)
 .get('/api/summary/:year/:month/:day', summaryApi.day)
-.get('/api/summary/:year/:month', summaryApi.month) // Extra
 
 export { router };

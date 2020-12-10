@@ -6,11 +6,12 @@ const form = async({response, render, session}) => {
   if(await session.get('user')){
     response.redirect('/behavior/summary')
   } else {
-    render('register.ejs', { data: {} })
+    render('register.ejs', { data: data })
   }
 }
 
 const register = async({response, session, render, request}) => {
+  const data = {}
   const errors = []
   const body = request.body()
   const form = await body.value
@@ -22,7 +23,6 @@ const register = async({response, session, render, request}) => {
 
   if(errors.length === 0){
     const res = await userService.add(email, password)
-    console.log(res)
     if(res.success){
       await session.set('user', res.id)
       response.redirect('/behavior/summary')
@@ -32,7 +32,9 @@ const register = async({response, session, render, request}) => {
     }
   }
   response.status = 400
-  render('register.ejs', { data: { email: email, errors: errors } })
+  data.email = email
+  data.errors = errors
+  render('register.ejs', { data: data })
 }
 
 export { form, register }

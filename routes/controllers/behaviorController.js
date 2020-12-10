@@ -3,6 +3,7 @@ import * as reportService from '../../services/reportService.js'
 const form = async({response, session, render}) => {
   const user = await session.get('user')
   const data = {}
+  data.loggedInAs = await session.get('email')
   data.today = (new Date()).toISOString().slice(0,10)
 
   const report = await reportService.find(user, data.today)
@@ -20,6 +21,7 @@ const create = async({response, render, request, session}) => {
   const form = await body.value
   const type = form.get('type')
   data.today = (new Date()).toISOString().slice(0,10)
+  data.loggedInAs = await session.get('email')
 
   const oldReport = await reportService.find(user, data.today)
 
@@ -72,11 +74,11 @@ const create = async({response, render, request, session}) => {
   render('reporting.ejs', { data: data })
 }
 
-const summary = async({response}) => {
-  const yesterday = new Date(Date.now()-3600*24*1000).toISOString().slice(0,10)
-  const today = new Date().toISOString().slice(0,10)
+const summary = async({response, session, render}) => {
+  const data = {}
+  data.loggedInAs = await session.get('email')
 
-  response.body = 'TODO'
+  render('summary.ejs', { data: data })
 }
 
 export { form, create, summary }

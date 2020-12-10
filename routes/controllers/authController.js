@@ -1,19 +1,23 @@
 import * as userService from '../../services/userService.js'
 
 const form = async({response, session, render}) => {
+  const data = {}
+  data.loggedInAs = await session.get('email')
   if(await session.get('user')){
     response.redirect('/behavior/summary')
   } else {
-    render('login.ejs', { data: {} })
+    render('login.ejs', { data: data })
   }
 }
 
 const login = async({request, response, session, render}) => {
+  const data = {}
   const errors = []
   const body = request.body()
   const form = await body.value
   const email = form.get('email')
   const password = form.get('password')
+  data.loggedInAs = await session.get('email')
 
   const res = await userService.auth(email, password)
   if(res.success){
@@ -24,7 +28,9 @@ const login = async({request, response, session, render}) => {
     if(res.invalidEmail) { errors.push('The email is not registered') }
     if(res.invalidPassword) { errors.push('Incorrect password') }
     response.status = 400
-    render('login.ejs', { data: { email: email, errors: errors } })
+    data.email = email
+    data.errors = errors
+    render('login.ejs', { data: data })
   }
 }
 

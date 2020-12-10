@@ -29,7 +29,6 @@ const auth = async(email, password)  => {
   const rows = r.rowsOfObjects()
   if(rows.length > 0){
     const user = rows[0]
-    console.log(user)
     const pass = await bcrypt.compare(password, user.password)
     if(pass){
       return { success: true, id: user.id }

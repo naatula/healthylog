@@ -1,17 +1,17 @@
 import * as reportService from '../../services/reportService.js'
 
-const week = async({response}) => {
-  response.body = await reportService.getWeekSummary(Date.now() - 604800000)
+// Public
+
+const lastWeek = async({response}) => {
+  response.body = await reportService.getSummaryBetween(Date.now() - 604800000, Date.now())
+  if(Object.keys(response.body).length === 0){ response.status = 400 }
 }
 
 const day = async({response, params}) => {
   const date = `${params.year}-${params.month}-${params.day}`
   response.body = await reportService.getDaySummary(date)
+  if(Object.keys(response.body).length === 0){ response.status = 400 }
 }
 
-const month = async({response, params}) => {
-  const date = `${params.year}-${params.month}-1`
-  response.body = await reportService.getMonthSummary(date)
-}
 
-export {month, day, week }
+export { day, lastWeek }

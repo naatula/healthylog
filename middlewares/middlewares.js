@@ -8,13 +8,13 @@ const errorMiddleware = async(context, next) => {
   }
 }
 
-const requestLoggingMiddleware = async({ request, session }, next) => {
+const requestLoggingMiddleware = async({ request, session, response }, next) => {
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
   var user = await session.get('user')
   if(user){ user = `User: ${user}` } else { user = 'anonymous' }
-  console.log(`${request.method} ${request.url.pathname} - ${ user } - ${ms} ms`);
+  console.log(`${request.method} ${request.url.pathname} | ${ user } | ${ response.status } (${ms} ms)`);
 }
 
 const authenticationMiddleware = async({request, response, session, params}, next) => {

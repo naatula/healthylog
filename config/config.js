@@ -4,11 +4,11 @@ if (Deno.env.get('TEST_ENVIRONMENT')) {
   config.database = {};
 } else {
   config.database = {
-    hostname: '',
-    database: '',
-    user: '',
-    password: '',
-    port: 5432
+    // hostname: 'hostname',
+    // database: 'database',
+    // user: 'user',
+    // password: 'password',
+    // port: 5432
   };
 }
 
