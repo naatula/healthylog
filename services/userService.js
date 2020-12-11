@@ -15,7 +15,7 @@ const add = async(email, password) => {
 }
 
 const find = async(value, column = 'id') => {
-  const r = await executeQuery(`SELECT (id, email) FROM users WHERE ${column} = $1 LIMIT 1`, value)
+  const r = await executeQuery(`SELECT id, email FROM users WHERE ${column} = $1 LIMIT 1`, value)
   const rows = r.rowsOfObjects()
   if(rows.length > 0){
     const user = rows[0]
