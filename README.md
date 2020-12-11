@@ -77,5 +77,9 @@ Pass database configuration in environmental variables `PGHOST`, `PGDATABASE`, `
 - The landing page lacks a link to reporting functionality because you are required to log in first
 - The landing page tells that things are looking bright if mood of yesterday and today are equal. I like positivity
 - The week and month selectors seem to work properly only on Chromium-based browsers. The checklist instructed to use them, though
-- The database structure is not ideal. I'm probably going to refactor it later
 - ¯\\_(ツ)_/¯
+
+## Todo
+- The database structure is not ideal. I'm probably going to refactor it later
+- On reporting page, fetch old values for custom dates and tell the user if a report on that specific day already exists
+- Ability to change password
