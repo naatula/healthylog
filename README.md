@@ -1,6 +1,6 @@
 # Healthylog
 
-A running instance can be found at https://healthylog.naatu.la
+A running instance can be found at https://healthylog.herokuapp.com
 
 *Please use a browser that supports week and month input types. Any Chromium–based browser should be fine. Firefox sadly isn't.*
 
