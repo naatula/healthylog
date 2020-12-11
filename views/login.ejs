@@ -1,8 +1,20 @@
 <%- include('./partials/header.ejs') %>
-<%- include('./partials/errors.ejs') %>
-<form action="/auth/login" method="POST">
-  <input type="email" name="email" value="<%= data.email %>">
-  <input type="password" name="password">
-  <input type="submit" value="Login">
+<div class="mx-auto" style="max-width: 696px;">
+<h1 class="my-3">Log in</h1>
+<form action="/auth/login" method="POST" class="row g-2 my-3">
+  <%- include('./partials/errors.ejs') %>
+  <div class="col-sm form-floating">
+    <input type="email" name="email" id="email" class="form-control" value="<%= data.email %>" placeholder="Email" required>
+    <label for="email">Email address</label>
+  </div>
+  <div class="col-sm form-floating">
+    <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
+    <label for="password">Password</label>
+  </div>
+  <div class="col-md-2 d-flex">
+    <input type="submit" class="btn form-control btn-primary" value="Log in">
+  </div>
 </form>
+
+</div>
 <%- include('./partials/footer.ejs') %>

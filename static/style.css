@@ -1,0 +1,27 @@
+.btn-logout {
+  position: relative;
+  min-width: 6em;
+}
+.btn-logout .logout-email {
+  opacity: 1;
+  transition: opacity .15s;
+}
+.btn-logout .logout-prompt {
+  opacity: 0;
+  transition: opacity .15s;
+  position: absolute;
+  color: white;
+  left: 50%;
+  margin-left: -1.75em;
+}
+.btn-logout:hover {
+  background-color: var(--bs-danger);
+  border-color: var(--bs-danger);
+  color: rgb(108, 117, 125);
+}
+.btn-logout:hover .logout-email {
+  opacity: 0;
+}
+.btn-logout:hover .logout-prompt {
+  opacity: 1;
+}

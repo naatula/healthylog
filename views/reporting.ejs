@@ -1,28 +1,136 @@
 <%- include('./partials/header.ejs') %>
-<%- include('./partials/errors.ejs') %>
-<h2>Morning</h2>
-<% if(data.morning){ %>
-  <div>Already reported today</div>
-<% } %> 
-<form action="/behavior/reporting" method="POST">
-  <input type="hidden" name="type" value="morning">
-  <input type="date" name="date" value="<%= data.morningDate || data.today %>" required>
-  <input type="number" name="sleep_duration" step="0.01" min="0" max="24" value="<%= data.morning?.sleep_duration %>" required>
-  <input type="range" name="sleep_quality" min="1" max="5" value="<%= data.morning?.sleep_quality || 3 %>" required>
-  <input type="range" name="mood" min="1" max="5" value="<%= data.morning?.mood || 3 %>" required>
-  <input type="submit" value="Save">
-</form>
-<h2>Evening</h2>
-<% if(data.evening){ %>
-  <div>Already reported today</div>
-<% } %> 
-<form action="/behavior/reporting" method="POST">
-  <input type="hidden" name="type" value="evening">
-  <input type="date" name="date" value="<%= data.eveningDate || data.today %>" required>
-  <input type="number" name="exercise" step="0.01" min="0" max="24" value="<%= data.evening?.exercise %>" required>
-  <input type="number" name="studying" step="0.01" min="0" max="24" value="<%= data.evening?.studying %>" required>
-  <input type="range" name="eating" min="1" max="5" value="<%= data.evening?.eating || 3 %>" required>
-  <input type="range" name="mood" min="1" max="5" value="<%= data.evening?.mood || 3 %>" required>
-  <input type="submit" value="Save">
-</form>
+<h1 class="my-3">Reporting</h1>
+<div class="row g-3">
+  <div class="col-xl">
+  <div class="accordion">
+    <div class="accordion-item">
+      <button class="accordion-button <% if(!(data.post==='morning')){ %>collapsed<% } %>" type="button" data-bs-toggle="collapse" data-bs-target="#morning">
+        <h2 class="display-6">Morning</h2>
+      </button>
+      <div id="morning" class="accordion-collapse collapse <% if(data.post==='morning'){ %>show<% } %>">
+        <div class="accordion-body">
+          <form action="/behavior/reporting" method="POST">
+            <% if(data.post==='morning'){ %>
+            <%- include('./partials/errors.ejs') %>
+            <% } %>
+            <input type="hidden" name="type" value="morning">
+            
+            <div class="mb-2">
+              <label for="dateM">Date</label>
+              <input type="date" id="dateM" name="date" class="form-control" value="<%= data.morningDate || data.today %>" required>
+            </div>
+            
+            <div class="mb-2">
+              <label for="sleep_duration">Duration of sleep</label>
+              <div class="input-group">
+                <input type="number" id="sleep_duration" name="sleep_duration" class="form-control" step="0.01" min="0" max="24" value="<%= data.morning?.sleep_duration %>" required>
+                <span class="input-group-text">hours</span>
+              </div>
+            </div>
+            
+            <div class="mb-2">
+              <label for="sleep_quality">Quality of sleep</label>
+              <div class="row">
+                <div class="col col-auto text-secondary">1</div>
+                <div class="col">
+                  <input type="range" id="sleep_quality" name="sleep_quality" class="form-range" min="1" max="5" value="<%= data.morning?.sleep_quality || 3 %>" required>
+                </div>
+                <div class="col-auto text-secondary">5</div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="moodM">Mood</label>
+              <div class="row">
+                <div class="col col-auto text-secondary">1</div>
+                <div class="col">
+                  <input type="range" id="moodM" name="mood" min="1" class="form-range" max="5" value="<%= data.morning?.mood || 3 %>" required>
+                </div>
+                <div class="col-auto text-secondary">5</div>
+              </div>
+            </div>
+            
+            <input class="btn form-control btn-outline-primary" type="submit" value="Save">
+            
+            <div class="form-text">If there's an existing report on the date, its data will be overwritten</div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-xl">
+  <div class="accordion">
+    <div class="accordion-item">
+      <button class="accordion-button <% if(!(data.post==='evening')){ %>collapsed<% } %>" type="button" data-bs-toggle="collapse" data-bs-target="#evening">
+        <h2 class="display-6">Evening</h2>
+      </button>
+      <div id="evening" class="accordion-collapse collapse <% if(data.post==='evening'){ %>show<% } %>">
+        <div class="accordion-body">
+          
+          <form action="/behavior/reporting" method="POST">
+            <% if(data.post==='evening'){ %>
+            <%- include('./partials/errors.ejs') %>
+            <% } %>
+            <input type="hidden" name="type" value="evening">
+            
+            <div class="mb-2">
+              <label for="dateE">Date</label>
+              <input type="date" id="dateE" name="date" class="form-control" value="<%= data.eveningDate || data.today %>" required>
+            </div>
+            
+            <div class="mb-2">
+              <label for="exercise">Exercise</label>
+              <div class="input-group">
+                <input type="number" id="exercise" name="exercise" class="form-control" step="0.01" min="0" max="24" value="<%= data.evening?.exercise %>" required>
+                <span class="input-group-text">hours</span>
+              </div>
+            </div>
+            
+            <div class="mb-2">
+              <label for="studying">Studying</label>
+              <div class="input-group">
+                <input type="number" id="studying" name="studying" class="form-control" step="0.01" min="0" max="24" value="<%= data.evening?.studying %>" required>
+                <span class="input-group-text">hours</span>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="eating">Quality of eating</label>
+              <div class="row">
+                <div class="col col-auto text-secondary">1</div>
+                <div class="col">
+                  <input type="range" id="eating" name="eating" min="1" class="form-range" max="5" value="<%= data.evening?.eating || 3 %>" required>
+                </div>
+                <div class="col-auto text-secondary">5</div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="moodE">Mood</label>
+              <div class="row">
+                <div class="col col-auto text-secondary">1</div>
+                <div class="col">
+                  <input type="range" id="moodE" name="mood" min="1" class="form-range" max="5" value="<%= data.evening?.mood || 3 %>" required>
+                </div>
+                <div class="col-auto text-secondary">5</div>
+              </div>
+            </div>
+            
+            <input class="btn form-control btn-outline-primary" type="submit" value="Save">
+            
+            <div class="form-text">If there's an existing report on the date, its data will be overwritten</div>
+            
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
 <%- include('./partials/footer.ejs') %>

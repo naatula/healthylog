@@ -1,10 +1,12 @@
 import * as reportService from '../../services/reportService.js'
+import '../../utils/weeknumber.js';
 
 const form = async({response, session, render}) => {
   const user = await session.get('user')
   const data = {}
   data.loggedInAs = await session.get('email')
   data.today = (new Date()).toISOString().slice(0,10)
+  data.page = 'reporting'
 
   const report = await reportService.find(user, data.today)
   data.morning = report.morning
@@ -22,6 +24,8 @@ const create = async({response, render, request, session}) => {
   const type = form.get('type')
   data.today = (new Date()).toISOString().slice(0,10)
   data.loggedInAs = await session.get('email')
+  data.post = type
+  data.page = 'reporting'
 
   const oldReport = await reportService.find(user, data.today)
 
@@ -77,6 +81,11 @@ const create = async({response, render, request, session}) => {
 const summary = async({response, session, render}) => {
   const data = {}
   data.loggedInAs = await session.get('email')
+  console.log(data.loggedInAs)
+  data.page = 'summary'
+  const date = new Date()
+  data.month = `${date.getFullYear()}-${date.getMonth() + 1}`
+  data.week = `${date.getWeekYear()}-W${date.getWeek()}`
 
   render('summary.ejs', { data: data })
 }

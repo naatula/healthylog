@@ -3,6 +3,9 @@ import * as userService from '../../services/userService.js'
 const email_pattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 const form = async({response, render, session}) => {
+  const data = {}
+  data.loggedInAs = await session.get('email')
+
   if(await session.get('user')){
     response.redirect('/behavior/summary')
   } else {
@@ -17,6 +20,7 @@ const register = async({response, session, render, request}) => {
   const form = await body.value
   const email = form.get('email')
   const password = form.get('password')
+  data.loggedInAs = await session.get('email')
 
   if(!email.match(email_pattern)){ errors.push('Please enter a valid email address') }
   if(password.length < 6){ errors.push('Password must be at least 6 characters long') }
@@ -25,6 +29,7 @@ const register = async({response, session, render, request}) => {
     const res = await userService.add(email, password)
     if(res.success){
       await session.set('user', res.id)
+      await session.set('email', res.email)
       response.redirect('/behavior/summary')
       return;
     } else {

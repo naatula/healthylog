@@ -5,9 +5,10 @@ const add = async(email, password) => {
   const emailAvailable = (await executeQuery('SELECT 1 FROM users WHERE email = $1', email)).rowCount === 0
   if(emailAvailable){
     const hash = await bcrypt.hash(password)
-    const r = await executeQuery('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id', email.toLowerCase(), hash)
+    const r = await executeQuery('INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email', email.toLowerCase(), hash)
     const userId = r.rows[0][0]
-    return { success: true, id: userId };
+    const savedEmail = r.rows[0][1]
+    return { success: true, id: userId, email: savedEmail };
   } else {
     return { success: false };
   }
@@ -31,7 +32,7 @@ const auth = async(email, password)  => {
     const user = rows[0]
     const pass = await bcrypt.compare(password, user.password)
     if(pass){
-      return { success: true, id: user.id }
+      return { success: true, id: user.id, email: user.email }
     } else {
       return { success: false, invalidPassword: true }
     }

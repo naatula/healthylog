@@ -18,7 +18,7 @@ const requestLoggingMiddleware = async({ request, session, response }, next) => 
 }
 
 const authenticationMiddleware = async({request, response, session, params}, next) => {
-  if(!['/auth', '/api'].every((a) => !request.url.pathname.startsWith(a)) || ['/', '/favicon.ico'].includes(request.url.pathname) ){
+  if(!['/auth', '/api', '/static'].every((a) => !request.url.pathname.startsWith(a)) || ['/', '/favicon.ico'].includes(request.url.pathname) ){
     await next();
   } else {
     const authenticated = await session.get('user')
