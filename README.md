@@ -42,13 +42,29 @@ CREATE INDEX evening_reports_date_user_id_index ON evening_reports (date, user_i
 ```
 
 ## Running
-Pass your database configuration in environment variables like in the following example
+
+```
+deno run --allow-net --allow-env --allow-read --unstable app.js
+```
+
+Pass your database configuration in environment variables `PGHOST`, `PGDATABASE`, `PGUSER`, `PGPASSWORD` and `PGPORT`. You can use the following example:
+
 ```
 PGHOST="" PGDATABASE="" PGUSER="" PGPASSWORD="" PGPORT=5432 deno run --allow-net --allow-env --allow-read --unstable app.js
 ```
+
 Alternatively, you can fill in your database configuration to `config/config.js`
 
 You can use a custom port instead of the default 7777 by giving the desired port number as the last parameter
+
+## Testing
+
+```
+deno test --allow-all --unstable
+```
+Pass database configuration in environmental variables `PGHOST`, `PGDATABASE`, `PGUSER`, `PGPASSWORD` and `PGPORT`. If you don't have them set by your environment, see the example in section *Running* on how to include them in the command.
+
+**Make sure not to use a production database for testing!**
 
 ## Notes
 - Static files are accessible to everyone to serve styles etc.
