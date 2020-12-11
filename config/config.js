@@ -1,6 +1,8 @@
 let config = {};
 
-if (Deno.env.get('TEST_ENVIRONMENT')) {
+if (Deno.env.get('DATABASE_URL')) {
+  config.database = Deno.env.get('DATABASE_URL');
+} else if (Deno.env.get('TEST_ENVIRONMENT')) {
   config.database = {};
 } else {
   config.database = {
