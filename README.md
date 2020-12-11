@@ -6,6 +6,11 @@ A running instance can be found at https://healthylog.herokuapp.com
 
 ## Setup
 
+### Requirements
+
+- Deno
+- PostgreSQL
+
 ### Database
 
 ```sql
