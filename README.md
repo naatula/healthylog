@@ -48,6 +48,8 @@ PGHOST="" PGDATABASE="" PGUSER="" PGPASSWORD="" PGPORT=5432 deno run --allow-net
 ```
 Alternatively, you can fill in your database configuration to `config/config.js`
 
+You can use a custom port instead of the default 7777 by giving the desired port number as the last parameter
+
 ## Notes
 - Static files are accessible to everyone to serve styles etc.
 - `/api/summary` serves a summary based on the last 7 days (ambiguous guidelines)
