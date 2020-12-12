@@ -1,0 +1,25 @@
+{
+  "name": "Healthylog",
+  "description": "Keep in touch with yourself",
+  "start_url": "/behavior/summary?source=pwa",
+  "icons": [
+    {
+      "src": "/static/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "256x256"
+    }
+  ],
+  "background_color": "#fff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#f8f9fa",
+  "shortcuts": [
+    {
+      "name": "Add a report",
+      "short_name": "Add",
+      "description": "Add a report of your daily behavior",
+      "url": "/behavior/reporting?source=pwa",
+      "icons": [{ "src": "/static/add.svg", "sizes": "256x256" }]
+    }
+  ]
+}
