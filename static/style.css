@@ -14,14 +14,14 @@
   left: 50%;
   margin-left: -1.75em;
 }
-.btn-logout:hover {
+.btn-logout:hover, .btn-logout:active {
   background-color: var(--bs-danger);
   border-color: var(--bs-danger);
   color: rgb(108, 117, 125);
 }
-.btn-logout:hover .logout-email {
+.btn-logout:hover .logout-email, .btn-logout:active .logout-email {
   opacity: 0;
 }
-.btn-logout:hover .logout-prompt {
+.btn-logout:hover .logout-prompt, .btn-logout:active .logout-prompt {
   opacity: 1;
 }
