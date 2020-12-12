@@ -36,7 +36,8 @@ const serveStaticFilesMiddleware = async(context, next) => {
     const path = context.request.url.pathname.substring(7);
   
     await send(context, path, {
-      root: `${Deno.cwd()}/static`
+      root: `${Deno.cwd()}/static`,
+      maxage: 86400000
     });
   
   } else {
