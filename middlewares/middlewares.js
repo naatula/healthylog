@@ -8,13 +8,17 @@ const errorMiddleware = async(context, next) => {
   }
 }
 
+var requestCount = 0;
 const requestLoggingMiddleware = async({ request, session, response }, next) => {
   const start = Date.now();
+  var user = await session.get('email')
+  if(!user) { user = 'anonymous' }
+  requestCount += 1
+  const requestNumber = requestCount
+  console.log(`Started #${requestNumber} ${request.method} "${request.url.pathname}" for ${ user } at ${new Date().toISOString()}`)
   await next();
   const ms = Date.now() - start;
-  var user = await session.get('user')
-  if(user){ user = `User: ${user}` } else { user = 'anonymous' }
-  console.log(`[${new Date().toISOString()}] ${request.method} ${request.url.pathname} | ${ user } | ${ response.status } (${ms} ms)`);
+  console.log(`Completed #${requestNumber} ${request.method} "${request.url.pathname}" with ${ response.status } in ${ms}ms`);
 }
 
 const authenticationMiddleware = async({request, response, session, params}, next) => {
