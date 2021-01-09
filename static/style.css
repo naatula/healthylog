@@ -12,7 +12,7 @@
   position: absolute;
   color: white;
   left: 50%;
-  margin-left: -1.75em;
+  transform: translateX(-50%);
 }
 .btn-logout:hover, .btn-logout:active {
   background-color: var(--bs-danger);
