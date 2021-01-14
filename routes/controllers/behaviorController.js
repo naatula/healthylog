@@ -84,8 +84,9 @@ const summary = async({response, session, render}) => {
   console.log(data.loggedInAs)
   data.page = 'summary'
   const date = new Date()
-  data.month = `${date.getFullYear()}-${date.getMonth() + 1}`
-  data.week = `${date.getWeekYear()}-W${date.getWeek()}`
+  data.date = date.toISOString().slice(0,10)
+  data.month = ['January','February','March','April','May','June','July','August','September','October','November','December'][date.getMonth()]
+  data.week = date.getWeek()
 
   render('summary.ejs', { data: data })
 }

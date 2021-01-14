@@ -1,47 +1,72 @@
-const summaryInputs = f('#summary input')
-if(summaryInputs.length === 2){
-  const inputs = { "week": summaryInputs[0], "month": summaryInputs[1] }
+Date.prototype.getWeek = function() {
+  var date = new Date(this.getTime());
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+  var week1 = new Date(date.getFullYear(), 0, 4);
+  return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+}
 
-  function updateWeek(){
-    const input = inputs.week.value.split('-W')
-    if(input.length != 2){ return; }
-    const week = getDateOfISOWeek(input[1], input[0])
-    const from = week.toISOString().slice(0,10)
-    const to = new Date(week.getTime() + 518400000).toISOString().slice(0,10)
-     
-    updateValues(from, to, 'week')
+Date.prototype.getWeekYear = function() {
+  var date = new Date(this.getTime());
+  date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+  return date.getFullYear();
+}
+
+const summaryInputs = f('input#summary-date-input')
+if(summaryInputs.length === 1){
+  const field = summaryInputs[0]
+  var currentDay;
+  var currentWeek;
+  var currentMonth;
+
+  function update(){
+    const date = new Date(field.value)
+    if(isNaN(date)){ return; }
+
+    let day = date.toISOString().slice(0,10)
+    if(currentDay != day){
+      currentDay = day
+      const title = date.toLocaleString('sv-FI')
+      updateValues(day, null, 'day')
+    }
+
+    let week = getDateOfISOWeek(date.getWeek(), date.getWeekYear())
+    if(currentWeek != week.valueOf()){
+      currentWeek = week.valueOf()
+      const from = week.toISOString().slice(0,10)
+      const to = new Date(week.getTime() + 518400000).toISOString().slice(0,10)
+      const title = `Week ${date.getWeek()}`
+      updateValues(from, to, 'week', title)
+    }
+
+    let month = date.toISOString().slice(0,7)
+    if(currentMonth != month){
+      currentMonth = month
+      const from = `${month}-01`
+      const to = `${month}-${getDaysInMonth(date.getMonth() + 1, date.getFullYear())}`
+      const title = date.toLocaleString('default', { month: 'long' })
+      updateValues(from, to, 'month', title)
+    }
   }
 
-  function updateMonth(){
-    const input = inputs.month.value.split('-')
-    if(input.length != 2){ return; }
-    const from = `${input[0]}-${input[1]}-01`
-    const to = `${input[0]}-${input[1]}-${getDaysInMonth(parseInt(input[1]), parseInt(input[0]))}`
-
-    updateValues(from, to, 'month')
-  }
-
-  async function updateValues(from, to, period){
-    const url =`/behavior/api/${from}/${to}`
+  async function updateValues(from, to, period, title = null){
+    const url = to ? `/behavior/api/${from}/${to}` : `/behavior/api/${from}`
     const res = await fetch(url)
     const data = await res.json();
-
+  
+    if(title){ f(`#title-${period}`)[0].innerText = title };
     ['mood', 'sleep_duration', 'sleep_quality', 'exercise', 'studying', 'eating'].forEach((field) => {
-      element = f(`#${period}_${field}`)[0]
+      element = f(`#${period}-${field}`)[0]
       if(element && data[field]){
         element.innerText = parseFloat(data[field]).toFixed(1)
       } else {
         element.innerHTML = '–'
       }
-    })
-    
+    })    
   }
 
-  updateWeek()
-  updateMonth()
-
-  inputs.week.addEventListener('change', updateWeek)
-  inputs.month.addEventListener('change', updateMonth)
+  update()
+  field.addEventListener('change', update)
 }
 
 
