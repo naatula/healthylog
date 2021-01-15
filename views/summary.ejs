@@ -1,28 +1,30 @@
 <%- include('./partials/header.ejs') %>
 <h1 class="my-3">My summary</h1>
+<input type="date" name="date" id="summary-date-input" class="form-control p-3 fs-2 mt-4 w-auto mx-auto" value="<%= data.date %>">
 
-  <input type="date" name="date" id="summary-date-input" class="form-control p-3 fs-2 mt-4 w-auto mx-auto" value="<%= data.date %>">
+<div class="my-3" id="summary">
+  
+  <div class="row fs-4 fw-light border-bottom">
+    <div class="col d-none d-sm-block align-bottom"></div>
+    <% [['day', 'Day'], ['week', `Week ${data.week}`], ['month', data.month]].forEach((set) => { %>
+      <div id="title-<%= set[0] %>" class="text-end fw-light d-sm-block ps-0 col py-3"><%= set[1] %></div>
+    <% }) %>
+  </div>
 
-<div class="row my-3 g-3" id="summary">
-
-  <% [['day', 'Day'], ['week', `Week ${data.week}`], ['month', data.month]].forEach((set) => { %>
-    <% const time = set[0] %>
-    <% const title = set[1] %>
-    <div class="col-md">
-      <ul class="list-group">
-        <li id="title-<%= time %>" class="list-group-item p-3 fs-3 fw-light text-center"><%= title %></li>
-        <% ['Mood', 'Eating', 'Sleep quality', 'Sleep duration', 'Exercise', 'Studying'].forEach((stat) => { %>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div><%= stat %></div>
-            <div class="fs-4">
-              <span id="<%= time %>-<%= stat.replaceAll(' ','_').toLowerCase() %>"></span>
-              <span class="text-muted fs-6"><%= ['Mood', 'Sleep quality', 'Eating'].includes(stat) ? '/ 5' : 'h' %></span>
-            </div>
-          </li>
-        <% }) %>
-      </ul>
-    </div>
+  <% ['Mood', 'Eating', 'Sleep quality', 'Sleep duration', 'Exercise', 'Studying'].forEach((stat) => { %>
+    <div class="row d-sm-none border-white pt-3"><div class="col"><%= stat %></div></div>
+    <div class="row align-items-center border-bottom py-3">
+      <div class="col align-middle d-none d-sm-block"><%= stat %></div>
+      <% ['day', 'week', 'month'].forEach((time) => { %>
+        <div class="col fs-4 text-end align-middle">
+          <span id="<%= time %>-<%= stat.replaceAll(' ','_').toLowerCase() %>"></span>
+          <span class="text-muted fs-6"><%= ['Mood', 'Sleep quality', 'Eating'].includes(stat) ? '/ 5' : 'h' %></span>
+        </div>
+      <% }) %>
+      </div>
   <% }) %>
 
 </div>
+
+
 <%- include('./partials/footer.ejs') %>
