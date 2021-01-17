@@ -12,6 +12,8 @@ Date.prototype.getWeekYear = function() {
   return date.getFullYear();
 }
 
+var cache = {}
+
 const summaryInputs = f('input#summary-date-input')
 if(summaryInputs.length === 1){
   const field = summaryInputs[0]
@@ -51,8 +53,12 @@ if(summaryInputs.length === 1){
 
   async function updateValues(from, to, period, title = null){
     const url = to ? `/behavior/api/${from}/${to}` : `/behavior/api/${from}`
-    const res = await fetch(url)
-    const data = await res.json();
+    var data = cache[url]
+    if(!data){
+      const res = await fetch(url)
+      data = await res.json();
+      cache[url] = data;
+    }
   
     if(title){ f(`#title-${period}`)[0].innerText = title };
     ['mood', 'sleep_duration', 'sleep_quality', 'exercise', 'studying', 'eating'].forEach((field) => {
