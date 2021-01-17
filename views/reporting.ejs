@@ -1,13 +1,13 @@
 <%- include('./partials/header.ejs') %>
-<h1 class="my-3">Reporting</h1>
-<div class="row g-3 my-3">
-  <div class="col-xl">
-  <div class="accordion">
+
+<div style="max-width: 696px;" class="mx-auto">  
+  <h1 class="my-3">Reporting</h1>
+  <div class="accordion my-3 mx-auto" id="accordion">
     <div class="accordion-item">
-      <button class="accordion-button <% if(!(data.post==='morning')){ %>collapsed<% } %>" type="button" data-bs-toggle="collapse" data-bs-target="#morning">
+      <button class="accordion-button <% if(!([data.post, data.showForm].includes('morning'))){ %>collapsed<% } %>" type="button" data-bs-toggle="collapse" data-bs-target="#morning">
         <h2 class="display-6">Morning</h2>
       </button>
-      <div id="morning" class="accordion-collapse collapse <% if(data.post==='morning'){ %>show<% } %>">
+      <div id="morning" class="accordion-collapse collapse <% if([data.post, data.showForm].includes('morning')){ %>show<% } %>" data-bs-parent="#accordion">
         <div class="accordion-body">
           <form action="/behavior/reporting" method="POST">
             <% if(data.post==='morning'){ %>
@@ -17,7 +17,7 @@
             
             <div class="mb-2">
               <label for="dateM">Date</label>
-              <input type="date" id="dateM" name="date" class="form-control" value="<%= data.morningDate || data.today %>" required>
+              <input type="date" id="dateM" name="date" class="form-control" max="<%= data.today %>" value="<%= data.morningDate || data.today %>" required>
             </div>
             
             <div class="mb-2">
@@ -58,16 +58,11 @@
         </div>
       </div>
     </div>
-  </div>
-  </div>
-
-  <div class="col-xl">
-  <div class="accordion">
     <div class="accordion-item">
-      <button class="accordion-button <% if(!(data.post==='evening')){ %>collapsed<% } %>" type="button" data-bs-toggle="collapse" data-bs-target="#evening">
+      <button class="accordion-button <% if(!([data.post, data.showForm].includes('evening'))){ %>collapsed<% } %>" type="button" data-bs-toggle="collapse" data-bs-target="#evening">
         <h2 class="display-6">Evening</h2>
       </button>
-      <div id="evening" class="accordion-collapse collapse <% if(data.post==='evening'){ %>show<% } %>">
+      <div id="evening" class="accordion-collapse collapse <% if([data.post, data.showForm].includes('evening')){ %>show<% } %>" data-bs-parent="#accordion">
         <div class="accordion-body">
           
           <form action="/behavior/reporting" method="POST">
@@ -78,7 +73,7 @@
             
             <div class="mb-2">
               <label for="dateE">Date</label>
-              <input type="date" id="dateE" name="date" class="form-control" value="<%= data.eveningDate || data.today %>" required>
+              <input type="date" id="dateE" name="date" class="form-control" max="<%= data.today %>" value="<%= data.eveningDate || data.today %>" required>
             </div>
             
             <div class="mb-2">
@@ -128,7 +123,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 </div>
 

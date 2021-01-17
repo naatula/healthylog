@@ -11,6 +11,8 @@ const form = async({response, session, render}) => {
   const report = await reportService.find(user, data.today)
   data.morning = report.morning
   data.evening = report.evening
+  if(!data.morning){ data.showForm = 'morning' }
+  else if(!data.evening) { data.showForm = 'evening' }
 
   render('reporting.ejs', { data: data })
 }
