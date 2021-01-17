@@ -2,8 +2,6 @@
 
 A running instance can be found at https://healthylog.herokuapp.com
 
-*Please use a browser that supports week and month input types. Any Chromium–based browser should be fine. Firefox sadly isn't.*
-
 ## Setup
 
 ### Requirements
@@ -72,6 +70,5 @@ Pass database configuration in environmental variables `PGHOST`, `PGDATABASE`, `
 - ¯\\_(ツ)_/¯
 
 ## Todo
-- The database structure is not ideal. I'm probably going to refactor it later
 - On reporting page, fetch old values for custom dates and tell the user if a report on that specific day already exists
-- Ability to change password
+- Ability to change email and password
