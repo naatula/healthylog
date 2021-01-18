@@ -15,20 +15,22 @@
             <% } %>
             <input type="hidden" name="type" value="morning">
             
-            <div class="mb-2">
+            <div class="row">
+            <div class="mb-3 col-sm">
               <label for="dateM">Date</label>
               <input type="date" id="dateM" name="date" class="form-control" max="<%= data.today %>" value="<%= data.morningDate || data.today %>" required>
             </div>
             
-            <div class="mb-2">
+            <div class="mb-3 col-sm">
               <label for="sleep_duration">Duration of sleep</label>
               <div class="input-group">
                 <input type="number" id="sleep_duration" name="sleep_duration" class="form-control" step="0.01" min="0" max="24" value="<%= data.morning?.sleep_duration %>" required>
                 <span class="input-group-text">hours</span>
               </div>
             </div>
+            </div>
             
-            <div class="mb-2">
+            <div class="mb-3">
               <label for="sleep_quality">Quality of sleep</label>
               <div class="row">
                 <div class="col col-auto text-secondary">1</div>
@@ -71,12 +73,13 @@
             <% } %>
             <input type="hidden" name="type" value="evening">
             
-            <div class="mb-2">
+            <div class="row">
+            <div class="mb-3 col-md">
               <label for="dateE">Date</label>
               <input type="date" id="dateE" name="date" class="form-control" max="<%= data.today %>" value="<%= data.eveningDate || data.today %>" required>
             </div>
             
-            <div class="mb-2">
+            <div class="mb-3 col-sm">
               <label for="exercise">Exercise</label>
               <div class="input-group">
                 <input type="number" id="exercise" name="exercise" class="form-control" step="0.01" min="0" max="24" value="<%= data.evening?.exercise %>" required>
@@ -84,12 +87,13 @@
               </div>
             </div>
             
-            <div class="mb-2">
+            <div class="mb-3 col-sm">
               <label for="studying">Studying</label>
               <div class="input-group">
                 <input type="number" id="studying" name="studying" class="form-control" step="0.01" min="0" max="24" value="<%= data.evening?.studying %>" required>
                 <span class="input-group-text">hours</span>
               </div>
+            </div>
             </div>
             
             <div class="mb-3">
