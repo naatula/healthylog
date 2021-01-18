@@ -4,7 +4,7 @@
 
 <div class="my-3" id="summary">
   
-  <div class="row fs-4 fw-light border-bottom">
+  <div class="row fs-4 fw-light border-bottom mx-1">
     <div class="col d-none d-sm-block align-bottom"></div>
     <% [['day', 'Day'], ['week', `Week ${data.week}`], ['month', data.month]].forEach((set) => { %>
       <div id="title-<%= set[0] %>" class="text-end fw-light d-sm-block ps-0 col py-3"><%= set[1] %></div>
@@ -12,8 +12,8 @@
   </div>
 
   <% ['Mood', 'Eating', 'Sleep quality', 'Sleep duration', 'Exercise', 'Studying'].forEach((stat) => { %>
-    <div class="row d-sm-none border-white pt-3"><div class="col"><%= stat %></div></div>
-    <div class="row align-items-center border-bottom py-3">
+    <div class="row d-sm-none border-white pt-3 mx-1"><div class="col"><%= stat %></div></div>
+    <div class="row align-items-center border-bottom py-3 mx-1">
       <div class="col align-middle d-none d-sm-block"><%= stat %></div>
       <% ['day', 'week', 'month'].forEach((time) => { %>
         <div class="col fs-4 text-end align-middle">
