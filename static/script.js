@@ -75,6 +75,22 @@ if(summaryInputs.length === 1){
   field.addEventListener('change', update)
 }
 
+var logoutButton = document.querySelector('a.btn-logout');
+var logoutShown = false;
+if(logoutButton){
+  logoutButton.addEventListener('touchstart', (e) => {
+    if(!logoutShown){
+      e.preventDefault();
+      logoutShown = true;
+    }
+  })
+  document.addEventListener('touchstart', (e) => {
+    if(logoutShown && !e.target.closest('a.btn-logout')){
+      logoutShown = false;
+    }
+  })
+}
+
 
 function f(selector){
   return document.querySelectorAll(selector)

@@ -18,7 +18,7 @@
       </ul>
       <div class="button-toolbar">
         <% if(data.loggedInAs){ %>
-          <a class="btn btn-outline-secondary btn-logout" onmouseover="this.href = '/auth/logout'" onmouseout="this.removeAttribute('href')"><span class="logout-email"><%= data.loggedInAs %></span><span class="logout-prompt">Log out</span></a>
+          <a class="btn btn-outline-secondary btn-logout" href="/auth/logout"><span class="logout-email"><%= data.loggedInAs %></span><span class="logout-prompt text-nowrap">Log out?</span></a>
         <% } else { %>
           <a class="btn btn-outline-success" href="/auth/registration">Sign up</a>
           <a class="btn btn-primary" href="/auth/login">Log in</a>
