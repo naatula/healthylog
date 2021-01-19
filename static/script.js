@@ -16,7 +16,7 @@ var cache = {}
 
 const summaryInputs = f('input#summary-date-input')
 if(summaryInputs.length === 1){
-  const field = summaryInputs[0]
+  var field = summaryInputs[0]
   var currentDay;
   var currentWeek;
   var currentMonth;
