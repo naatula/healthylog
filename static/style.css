@@ -14,14 +14,14 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.btn-logout:hover, .btn-logout:active {
+.btn-logout:hover, .btn-logout:active, .btn-logout.touched {
   background-color: var(--bs-danger);
   border-color: var(--bs-danger);
   color: rgb(108, 117, 125);
 }
-.btn-logout:hover .logout-email, .btn-logout:active .logout-email {
+.btn-logout:hover .logout-email, .btn-logout:active .logout-email, .btn-logout.touched .logout-email {
   opacity: 0;
 }
-.btn-logout:hover .logout-prompt, .btn-logout:active .logout-prompt {
+.btn-logout:hover .logout-prompt, .btn-logout:active .logout-prompt, .btn-logout.touched .logout-prompt {
   opacity: 1;
 }

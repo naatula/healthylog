@@ -75,18 +75,26 @@ if(summaryInputs.length === 1){
   field.addEventListener('change', update)
 }
 
-var logoutButton = document.querySelector('a.btn-logout');
+var logoutButton = document.querySelector('button.btn-logout');
 var logoutShown = false;
 if(logoutButton){
   logoutButton.addEventListener('touchstart', (e) => {
+    e.stopPropagation();
     if(!logoutShown){
       e.preventDefault();
       logoutShown = true;
+      logoutButton.classList.add('touched');
+    } else {
+      window.location.href = logoutButton.dataset.href
     }
   })
+  logoutButton.addEventListener('mouseup', (e) => {
+    window.location.href = logoutButton.dataset.href
+  })
   document.addEventListener('touchstart', (e) => {
-    if(logoutShown && !e.target.closest('a.btn-logout')){
+    if(logoutShown && !e.target.closest('button.btn-logout')){
       logoutShown = false;
+      logoutButton.classList.remove('touched');
     }
   })
 }
