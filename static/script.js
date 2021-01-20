@@ -82,11 +82,13 @@ if(logoutButton){
     if(!logoutShown){
       e.preventDefault();
       logoutShown = true;
+      logoutButton.classList.add('touched');
     }
   })
   document.addEventListener('touchstart', (e) => {
     if(logoutShown && !e.target.closest('a.btn-logout')){
       logoutShown = false;
+      logoutButton.classList.remove('touched');
     }
   })
 }
